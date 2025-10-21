@@ -40,6 +40,13 @@ def can_fit_all(vehicles, listings):
             return False
     return True
 
+@app.get("/")
+def home():
+    return {
+        "message": "Multi-Vehicle Search API is running!",
+        "usage": "Send a POST request to '/' with a JSON body like [{'length':10,'quantity':1}]"
+    }
+
 @app.post("/")
 def find_storage(request: list[dict]):
     body = request
