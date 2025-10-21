@@ -1,0 +1,43 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.py.class
+
+# ---- Virtual Environment ----
+venv/
+.env/
+.venv/
+
+# ---- IDE / Editor ----
+.vscode/
+.idea/
+
+# ---- OS Files ----
+.DS_Store
+Thumbs.db
+
+# ---- Testing ----
+.coverage
+.pytest_cache/
+.tox/
+.nox/
+coverage.xml
+htmlcov/
+
+# ---- Logs ----
+*.log
+
+# ---- Build / Distribution ----
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ---- JSON / Local Data ----
+# (Keep this if listings.json is just local sample data and not part of repo)
+listings.json
+
+# ---- Misc ----
+*.sqlite3
