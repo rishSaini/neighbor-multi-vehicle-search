@@ -40,3 +40,38 @@ def can_fit_all(vehicles, listings):
             return False
     return True
 
+@app.post("/")
+def find_storage(request: list[dict]):
+    body = request
+
+    vehicles = []
+    for item in body:
+        vehicles += [item["length"]] * item["quantity"]
+
+    if len(vehicles) == 0:
+        return [] 
+    
+    if len(vehicles) > 5:
+        return {"error": "Too many vehicles"}
+
+    results = []
+
+    for loc_id, listings in listings_by_location.items():
+        best = None
+
+        # Try all combinations of listings (1..N)
+        for r in range(1, len(listings) + 1):
+            for combo in combinations(listings, r):
+                if can_fit_all(vehicles, combo):
+                    total_price = sum(l["price_in_cents"] for l in combo)
+                    if not best or total_price < best["total_price_in_cents"]:
+                        best = {
+                            "location_id": loc_id,
+                            "listing_ids": [l["id"] for l in combo],
+                            "total_price_in_cents": total_price,
+                        }
+        if best:
+            results.append(best)
+
+    results.sort(key=lambda x: x["total_price_in_cents"])
+    return results
